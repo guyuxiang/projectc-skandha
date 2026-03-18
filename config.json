@@ -1,0 +1,9 @@
+{
+  "entryPoints": [
+    "0x9b5d240EF1bc8B4930346599cDDFfBD7d7D56db9"
+  ],
+  "relayers": [
+    "8e948e8f61e7468921b55e2581b6964174bb54f73492768f08d9c3e84f84518d"
+  ],
+  "rpcEndpoint": "https://sepolia.gateway.tenderly.co/2xRV8vQTDZE3KmbMjo4jCm"
+}
