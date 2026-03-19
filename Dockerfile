@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM:-amd64} node:18-alpine as build_src
+FROM --platform=${BUILDPLATFORM:-amd64} docker.m.daocloud.io/node:18-alpine as build_src
 WORKDIR /usr/app
 RUN apk update && apk add --no-cache g++ make python3 git py3-setuptools && rm -rf /var/cache/apk/*
 
@@ -8,7 +8,7 @@ RUN yarn install --non-interactive --frozen-lockfile && \
   yarn build && \
   yarn install --non-interactive --frozen-lockfile --production
 
-FROM node:18-alpine as build_deps
+FROM docker.m.daocloud.io/node:18-alpine as build_deps
 WORKDIR /usr/app
 RUN apk update && apk add --no-cache g++ make python3 git py3-setuptools && rm -rf /var/cache/apk/*
 
@@ -18,7 +18,7 @@ RUN yarn install --non-interactive --frozen-lockfile --production --force
 
 RUN cd node_modules/bcrypto && yarn install
 
-FROM node:18-alpine
+FROM docker.m.daocloud.io/node:18-alpine
 WORKDIR /usr/app
 COPY --from=build_deps /usr/app .
 
