@@ -387,7 +387,13 @@ export class EntryPointV8Service implements IEntryPointService {
       addr: string | undefined,
       info: IStakeManager.StakeInfoStructOutput
     ): StakeInfo | undefined {
-      if (addr == null || addr === AddressZero) return undefined;
+      if (
+        addr == null ||
+        addr === AddressZero ||
+        addr.toLowerCase() === INITCODE_EIP7702_MARKER
+      ) {
+        return undefined;
+      }
       return {
         addr,
         stake: info.stake,

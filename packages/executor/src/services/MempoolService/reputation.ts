@@ -169,7 +169,7 @@ export class MempoolReputationChecks {
     if (paymaster) {
       await this.reputationService.updateSeenStatus(paymaster);
     }
-    if (factory) {
+    if (factory && factory !== INITCODE_EIP7702_MARKER) {
       await this.reputationService.updateSeenStatus(factory);
     }
   }

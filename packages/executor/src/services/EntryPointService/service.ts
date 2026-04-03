@@ -6,6 +6,7 @@ import {
   UserOperationByHashResponse,
   UserOperationReceipt,
 } from "@skandha/types/lib/api/interfaces";
+import { INITCODE_EIP7702_MARKER } from "@skandha/params/lib";
 import RpcError from "@skandha/types/lib/api/errors/rpc-error";
 import * as RpcErrorCodes from "@skandha/types/lib/api/errors/rpc-error-codes";
 import { IStakeManager } from "@skandha/types/lib/contracts/EPv8/interfaces";
@@ -191,6 +192,9 @@ export class EntryPointService {
   }
 
   getFactory(entryPoint: string, userOp: UserOperation): string | undefined {
+    if (userOp.factory?.toLowerCase() === INITCODE_EIP7702_MARKER) {
+      return undefined;
+    }
     return userOp.factory?.toLowerCase();
   }
 

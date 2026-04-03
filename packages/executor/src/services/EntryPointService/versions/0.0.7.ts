@@ -28,7 +28,7 @@ import {
   _deployedBytecode as _callGasEstimationProxyDeployedBytecode,
 } from "@skandha/types/lib/contracts/EPv7/factories/core/CallGasEstimationProxy__factory";
 import { CallGasEstimationProxy } from "@skandha/types/lib/contracts/EPv7/core/CallGasEstimationProxy";
-import { EIP7702_PREFIX } from "@skandha/params/lib";
+import { EIP7702_PREFIX, INITCODE_EIP7702_MARKER } from "@skandha/params/lib";
 import {
   encodeUserOp,
   mergeValidationDataValues,
@@ -367,7 +367,13 @@ export class EntryPointV7Service implements IEntryPointService {
       addr: string | undefined,
       info: IStakeManager.StakeInfoStructOutput
     ): StakeInfo | undefined {
-      if (addr == null || addr === AddressZero) return undefined;
+      if (
+        addr == null ||
+        addr === AddressZero ||
+        addr.toLowerCase() === INITCODE_EIP7702_MARKER
+      ) {
+        return undefined;
+      }
       return {
         addr,
         stake: info.stake,
